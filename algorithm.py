@@ -396,6 +396,20 @@ def print_intro():
     print("\nExample: machine learning, quantum computing, graph neural networks")
     print("-----------------------------------------------")
 
+def run_web_query(query: str):
+    recommender = PaperRecommender()
+    papers = load_paper_database()
+    recommender.ingest(papers)
+    recommender.set_query(query)
+
+    results = recommender.recommend(top_n=3)
+    for paper, score in results:
+        print("=" * 40)
+        print(paper.title)
+        print(", ".join(paper.authors))
+        print(paper.url)
+        print(f"score: {score:.3f}")
+
 
 def main():
     print_intro()
@@ -464,19 +478,7 @@ def main():
             continue
 
     print("Session finished.")
-def run_web_query(query: str):
-    recommender = PaperRecommender()
-    papers = load_paper_database()
-    recommender.ingest(papers)
-    recommender.set_query(query)
 
-    results = recommender.recommend(top_n=3)
-    for paper, score in results:
-        print("=" * 40)
-        print(paper.title)
-        print(", ".join(paper.authors))
-        print(paper.url)
-        print(f"score: {score:.3f}")
 
 if __name__ == "__main__":
     main()
