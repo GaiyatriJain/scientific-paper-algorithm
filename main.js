@@ -19,22 +19,22 @@ async function init() {
 
     ready = true;
     runBtn.disabled = false;
-    log("✅ Ready. Enter a query and press run.");
+    log("Enter a query and press run.");
   } catch (err) {
-    log("❌ Error during initialization:");
+    log(" Error during initialization:");
     log(err.toString());
   }
 }
 
 async function run() {
   if (!ready) {
-    log("⚠️ Still loading...");
+    log("Still loading...");
     return;
   }
 
   const query = document.getElementById("query").value;
   if (!query) {
-    log("⚠️ Please enter a query.");
+    log("Please enter a query.");
     return;
   }
 
@@ -43,9 +43,9 @@ async function run() {
     log("Running recommender...");
     pyodide.globals.set("WEB_QUERY", query);
     await pyodide.runPythonAsync(`run_web_query(WEB_QUERY)`);
-    log("\n✅ Done.");
+    log("\nDone.");
   } catch (err) {
-    log("❌ Python error:");
+    log("Python error:");
     log(err.toString());
   }
 }
