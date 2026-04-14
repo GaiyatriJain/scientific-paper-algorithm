@@ -2,6 +2,7 @@ I wanted to built something that would make scientific papers accessible so I co
 
 This tool uses Crossref paper metadata and sorts it. It shows you one paper at a time then you can give feedback on the paper and from that it understands you better and can recommend you better things. 
 You can run the project from the folder. Initially i didnt know how to ship this because i was running it in my ide. This version of the project can be tried by the link which simulates a terminal. To make this I used references for how to do this but in general its a pretty short ui which runs in the browser so that you can see recs without installing anything. Eventually I think this could become an app by adding a cooler UI but i haven't learnt how to do that yet. 
+ALl that said though, github pages running the python can be really really slow, so I recommend you run the file locally ")
 
 
 When youre running it, you can use a couple commands i.e. 
