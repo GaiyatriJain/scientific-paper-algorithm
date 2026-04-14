@@ -1,4 +1,4 @@
-## Algorithm to Recommend Scientific Papers
+# Algorithm to Recommend Scientific Papers
 
 I wanted to built something that would make scientific papers accessible so I could keep up with new stuff happening in science. In the future, I want it to be something I could open instead of instagram almost like a cross between a tinder for scientific papers (the algorithm of which I tried to build in this project) and then an interface that makes reading papers accessible (ie like summaries or a built in definition tool).
 
