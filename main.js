@@ -1,23 +1,53 @@
-let pyodideReady = false;
 let pyodide;
+let ready = false;
 
-async function init() {
-  pyodide = await loadPyodide();
-  await pyodide.runPythonAsync(await (await fetch("paper_recommenderss.py")).text());
-  pyodideReady = true;
-  log("Ready.");
+const terminal = document.getElementById("terminal");
+const runBtn = document.getElementById("runBtn");
+
+function log(msg) {
+  terminal.textContent += msg + "\n";
 }
 
-function log(text) {
-  document.getElementById("terminal").textContent += text + "\n";
+async function init() {
+  try {
+    log("Initializing Pyodide...");
+    pyodide = await loadPyodide();
+
+    log("Loading Python file...");
+    const pyCode = await (await fetch("paper_recommenderss.py")).text();
+    await pyodide.runPythonAsync(pyCode);
+
+    ready = true;
+    runBtn.disabled = false;
+    log("✅ Ready. Enter a query and press run.");
+  } catch (err) {
+    log("❌ Error during initialization:");
+    log(err.toString());
+  }
 }
 
 async function run() {
-  if (!pyodideReady) return;
-  document.getElementById("terminal").textContent = "";
-  const q = document.getElementById("query").value;
-  pyodide.globals.set("WEB_QUERY", q);
-  await pyodide.runPythonAsync("run_web_query(WEB_QUERY)");
+  if (!ready) {
+    log("⚠️ Still loading...");
+    return;
+  }
+
+  const query = document.getElementById("query").value;
+  if (!query) {
+    log("⚠️ Please enter a query.");
+    return;
+  }
+
+  try {
+    terminal.textContent = "";
+    log("Running recommender...");
+    pyodide.globals.set("WEB_QUERY", query);
+    await pyodide.runPythonAsync(`run_web_query(WEB_QUERY)`);
+    log("\n✅ Done.");
+  } catch (err) {
+    log("❌ Python error:");
+    log(err.toString());
+  }
 }
 
 init();
