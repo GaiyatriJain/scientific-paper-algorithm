@@ -62,7 +62,7 @@ def load_paper_database() -> List[Paper]:
             ["Ashish Vaswani", "Noam Shazeer", "Niki Parmar"],
             ["cs.CL", "cs.LG"],
             "2017-06-12T00:00:00Z",
-            "https://arxiv.org/abs/1706.03762"
+            "https://arxiv.org/abs/1706.03762",
         ),
         Paper(
             "arXiv:1810.04805",
@@ -71,7 +71,7 @@ def load_paper_database() -> List[Paper]:
             ["Jacob Devlin", "Ming-Wei Chang", "Kenton Lee", "Kristina Toutanova"],
             ["cs.CL", "cs.LG"],
             "2018-10-11T00:00:00Z",
-            "https://arxiv.org/abs/1810.04805"
+            "https://arxiv.org/abs/1810.04805",
         ),
         Paper(
             "arXiv:2005.14165",
@@ -80,7 +80,7 @@ def load_paper_database() -> List[Paper]:
             ["Tom B. Brown", "Benjamin Mann", "Nick Ryder"],
             ["cs.CL", "cs.LG"],
             "2020-05-28T00:00:00Z",
-            "https://arxiv.org/abs/2005.14165"
+            "https://arxiv.org/abs/2005.14165",
         ),
         Paper(
             "arXiv:1409.3215",
@@ -89,7 +89,7 @@ def load_paper_database() -> List[Paper]:
             ["Ilya Sutskever", "Oriol Vinyals", "Quoc V. Le"],
             ["cs.LG"],
             "2014-09-10T00:00:00Z",
-            "https://arxiv.org/abs/1409.3215"
+            "https://arxiv.org/abs/1409.3215",
         ),
         Paper(
             "arXiv:1404.7828",
@@ -98,7 +98,7 @@ def load_paper_database() -> List[Paper]:
             ["Ian Goodfellow", "Jean Pouget-Abadie", "Mehdi Mirza"],
             ["cs.LG"],
             "2014-06-10T00:00:00Z",
-            "https://arxiv.org/abs/1404.7828"
+            "https://arxiv.org/abs/1404.7828",
         ),
         Paper(
             "arXiv:1505.04597",
@@ -107,7 +107,7 @@ def load_paper_database() -> List[Paper]:
             ["Olaf Ronneberger", "Philipp Fischer", "Thomas Brox"],
             ["cs.CV"],
             "2015-05-18T00:00:00Z",
-            "https://arxiv.org/abs/1505.04597"
+            "https://arxiv.org/abs/1505.04597",
         ),
         Paper(
             "arXiv:1710.10903",
@@ -116,7 +116,7 @@ def load_paper_database() -> List[Paper]:
             ["Petar Veličković", "Guillem Cucurull", "Arantxa Casanova"],
             ["cs.LG", "cs.AI"],
             "2017-10-04T00:00:00Z",
-            "https://arxiv.org/abs/1710.10903"
+            "https://arxiv.org/abs/1710.10903",
         ),
         Paper(
             "arXiv:1905.11946",
@@ -125,7 +125,7 @@ def load_paper_database() -> List[Paper]:
             ["Mingxing Tan", "Quoc V. Le"],
             ["cs.CV"],
             "2019-05-29T00:00:00Z",
-            "https://arxiv.org/abs/1905.11946"
+            "https://arxiv.org/abs/1905.11946",
         ),
         Paper(
             "arXiv:1910.01108",
@@ -134,7 +134,7 @@ def load_paper_database() -> List[Paper]:
             ["Victor Sanh", "Lysandre Debut", "Julien Chaumond"],
             ["cs.CL", "cs.LG"],
             "2019-10-02T00:00:00Z",
-            "https://arxiv.org/abs/1910.01108"
+            "https://arxiv.org/abs/1910.01108",
         ),
         Paper(
             "arXiv:1703.10593",
@@ -143,7 +143,7 @@ def load_paper_database() -> List[Paper]:
             ["Jun-Yan Zhu", "Taesung Park", "Phillip Isola"],
             ["cs.CV"],
             "2017-03-10T00:00:00Z",
-            "https://arxiv.org/abs/1703.10593"
+            "https://arxiv.org/abs/1703.10593",
         ),
         Paper(
             "arXiv:1812.04948",
@@ -152,7 +152,7 @@ def load_paper_database() -> List[Paper]:
             ["Ting Chen", "Simon Kornblith", "Mohammad Norouzi"],
             ["cs.CV"],
             "2019-06-16T00:00:00Z",
-            "https://arxiv.org/abs/2002.05709"
+            "https://arxiv.org/abs/2002.05709",
         ),
         Paper(
             "arXiv:2103.00020",
@@ -161,7 +161,7 @@ def load_paper_database() -> List[Paper]:
             ["Alec Radford", "Jong Wook Kim", "Chris Hallacy"],
             ["cs.CV", "cs.CL"],
             "2021-01-05T00:00:00Z",
-            "https://arxiv.org/abs/2103.00020"
+            "https://arxiv.org/abs/2103.00020",
         ),
     ]
 
@@ -189,7 +189,9 @@ def fetch_live_papers(query: str, max_results: int = 20) -> List[Paper]:
     for item in items:
         paper_id = item.get("DOI", item.get("URL", ""))
         title_parts = item.get("title", [])
-        title = " ".join(title_parts).strip() if title_parts else item.get("container-title", ["Untitled"])[0]
+        title = " ".join(title_parts).strip() if title_parts else item.get(
+            "container-title", ["Untitled"]
+        )[0]
         summary = strip_html_tags(item.get("abstract", ""))
         if not summary:
             summary = item.get("subtitle", [""])[0] if item.get("subtitle") else ""
@@ -205,9 +207,15 @@ def fetch_live_papers(query: str, max_results: int = 20) -> List[Paper]:
         if not authors and item.get("author"):
             authors = [str(author) for author in item.get("author")]
         categories = item.get("subject", []) or item.get("container-title", [])
-        published = item.get("created", {}).get("date-time") or item.get("issued", {}).get("date-time") or ""
+        published = (
+            item.get("created", {}).get("date-time")
+            or item.get("issued", {}).get("date-time")
+            or ""
+        )
         url = item.get("URL") or ("https://doi.org/" + item.get("DOI", ""))
-        papers.append(Paper(paper_id, title, summary, authors, categories, published, url))
+        papers.append(
+            Paper(paper_id, title, summary, authors, categories, published, url)
+        )
     if not papers:
         raise RuntimeError("No live papers were returned from the Crossref API.")
     return papers
@@ -228,7 +236,9 @@ def search_local_papers(query: str, max_results: int = 20) -> List[Paper]:
     return [paper for _, paper in results][:max_results]
 
 
-def cosine_similarity(vec1: Dict[str, float], vec2: Dict[str, float]) -> float:
+def cosine_similarity(
+    vec1: Dict[str, float], vec2: Dict[str, float]
+) -> float:
     if not vec1 or not vec2:
         return 0.0
     dot = sum(vec1.get(k, 0.0) * vec2.get(k, 0.0) for k in vec1)
@@ -237,8 +247,6 @@ def cosine_similarity(vec1: Dict[str, float], vec2: Dict[str, float]) -> float:
     if norm1 == 0 or norm2 == 0:
         return 0.0
     return dot / (norm1 * norm2)
-
-
 
 
 class Policy:
@@ -266,7 +274,9 @@ class PaperRecommender:
                 state = json.load(f)
             self.feedback = state.get("feedback", {})
             self.reading_list = state.get("reading_list", [])
-            self.profile = {k: float(v) for k, v in state.get("profile", {}).items()}
+            self.profile = {
+                k: float(v) for k, v in state.get("profile", {}).items()
+            }
         except Exception:
             pass
 
@@ -286,7 +296,9 @@ class PaperRecommender:
             self.query_vector = {}
             return
         norm = math.sqrt(sum(v * v for v in token_counts.values()))
-        self.query_vector = {term: count / norm for term, count in token_counts.items()}
+        self.query_vector = {
+            term: count / norm for term, count in token_counts.items()
+        }
 
     def ingest(self, papers: List[Paper]):
         added_ids = {paper.paper_id for paper in self.papers}
@@ -302,10 +314,14 @@ class PaperRecommender:
             if not token_counts:
                 continue
             norm = math.sqrt(sum(v * v for v in token_counts.values()))
-            self.vectors[paper.paper_id] = {term: count / norm for term, count in token_counts.items()}
+            self.vectors[paper.paper_id] = {
+                term: count / norm for term, count in token_counts.items()
+            }
 
     def update_profile(self, paper_id: str, action: str):
-        paper = next((p for p in self.papers if p.paper_id == paper_id), None)
+        paper = next(
+            (p for p in self.papers if p.paper_id == paper_id), None
+        )
         if paper is None or paper_id not in self.vectors:
             return
         self.feedback[paper_id] = action
@@ -318,12 +334,16 @@ class PaperRecommender:
         else:
             return
         for term, value in self.vectors[paper_id].items():
-            self.profile[term] = self.profile.get(term, 0.0) + weight * value
+            self.profile[term] = (
+                self.profile.get(term, 0.0) + weight * value
+            )
         if action == "later" and paper_id not in self.reading_list:
             self.reading_list.append(paper_id)
         self.save_state()
 
-    def recommend(self, top_n: int = 10) -> List[Tuple[Paper, float]]:
+    def recommend(
+        self, top_n: int = 10
+    ) -> List[Tuple[Paper, float]]:
         candidates = []
         for paper in self.papers:
             if paper.paper_id in self.feedback:
@@ -337,7 +357,11 @@ class PaperRecommender:
             query_score = cosine_similarity(self.query_vector, vector)
             recency = self._recency_boost(paper)
             if self.profile:
-                score = profile_score * 0.6 + query_score * 0.3 + recency * 0.1
+                score = (
+                    profile_score * 0.6
+                    + query_score * 0.3
+                    + recency * 0.1
+                )
             else:
                 score = query_score * 0.7 + recency * 0.3
             candidates.append((paper, score))
@@ -346,15 +370,22 @@ class PaperRecommender:
 
     def _recency_boost(self, paper: Paper) -> float:
         try:
-            dt = datetime.fromisoformat(paper.updated.replace("Z", "+00:00"))
+            dt = datetime.fromisoformat(
+                paper.updated.replace("Z", "+00:00")
+            )
         except ValueError:
             return 0.0
         now = datetime.now(timezone.utc)
         age = max((now - dt).days, 0)
         return 1.0 / (1.0 + age / 30.0)
 
-    def get_paper_by_id(self, paper_id: str) -> Optional[Paper]:
-        return next((p for p in self.papers if p.paper_id == paper_id), None)
+    def get_paper_by_id(
+        self, paper_id: str
+    ) -> Optional[Paper]:
+        return next(
+            (p for p in self.papers if p.paper_id == paper_id),
+            None,
+        )
 
     def show_reading_list(self):
         if not self.reading_list:
@@ -392,9 +423,14 @@ def print_intro():
     print("  A lightweight terminal tool for arXiv papers")
     print("===============================================")
     print("Enter a short search query, then respond to each suggestion.")
-    print("If you run this from an editor without arguments, you can type your query now.")
-    print("\nExample: machine learning, quantum computing, graph neural networks")
+    print(
+        "If you run this from an editor without arguments, you can type your query now."
+    )
+    print(
+        "\nExample: machine learning, quantum computing, graph neural networks"
+    )
     print("-----------------------------------------------")
+
 
 def run_web_query(query: str):
     recommender = PaperRecommender()
