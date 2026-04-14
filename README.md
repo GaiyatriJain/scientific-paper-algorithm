@@ -16,3 +16,4 @@ When youre running it, you can use a couple commands i.e.
 - `q` / `quit` / `exit` which  quit the program
 
 
+<img width="757" height="611" alt="image" src="https://github.com/user-attachments/assets/ccc044a0-a704-4e45-aef5-d02302357a8e" />
