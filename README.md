@@ -6,6 +6,10 @@ This tool uses Crossref paper metadata and sorts it. It shows you one paper at a
 
 You can run the project from a folder. Initially i didnt know how to ship this because i was running it in my ide. This version of the project can be tested by the github pages link which simulates a terminal. To make this I used references for how to do this but in general its a pretty short ui which runs in the browser so that you can see recs without installing anything. Eventually I think this could become an app by adding a cooler UI but istill need to figure out how to dob that.
 ALl that said though, github pages running the python can be really really slow, so I recommend you run the file locally :) 
+#
+
+<img width="757" height="611" alt="image" src="https://github.com/user-attachments/assets/ccc044a0-a704-4e45-aef5-d02302357a8e" />
+
 
 When youre running it, you can use a couple commands i.e. 
 - `y` / `yes` which accept the paper
@@ -16,4 +20,3 @@ When youre running it, you can use a couple commands i.e.
 - `q` / `quit` / `exit` which  quit the program
 
 
-<img width="757" height="611" alt="image" src="https://github.com/user-attachments/assets/ccc044a0-a704-4e45-aef5-d02302357a8e" />
