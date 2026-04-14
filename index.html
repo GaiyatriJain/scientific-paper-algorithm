@@ -4,19 +4,35 @@
   <meta charset="utf-8">
   <title>Paper Recommender</title>
   <style>
-    body { background: #111; color: #eee; font-family: monospace; }
-    #terminal { white-space: pre-wrap; margin-top: 10px; }
-    input, button { font-family: monospace; }
+    body {
+      background: #111;
+      color: #eee;
+      font-family: monospace;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      border: 1px solid #333;
+      padding: 10px;
+      margin-top: 10px;
+      min-height: 200px;
+    }
+    button:disabled {
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body>
-  <h3>Paper Recommender</h3>
-  <input id="query" placeholder="enter search query" size="40">
-  <button onclick="run()">run</button>
 
-  <div id="terminal"></div>
+<h3>Paper Recommender</h3>
 
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
-  <script src="main.js"></script>
+<input id="query" placeholder="enter search query" size="40">
+<button id="runBtn" onclick="run()" disabled>run</button>
+
+<div id="terminal">Loading Python environment…</div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<script src="main.js"></script>
+
 </body>
 </html>
+``
