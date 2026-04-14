@@ -1,3 +1,5 @@
+##Algorithm to Recommend Scientific Papers
+
 I wanted to built something that would make scientific papers accessible so I could keep up with new stuff happening in science. In the future, I want it to be something I could open instead of instagram almost like a cross between a tinder for scientific papers (the algorithm of which I tried to build in this project) and then an interface that makes reading papers accessible (ie like summaries or a built in definition tool).
 
 This tool uses Crossref paper metadata and sorts it. It shows you one paper at a time then you can give feedback on the paper and from that it understands you better and can recommend you better things. 
